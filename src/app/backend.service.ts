@@ -23,9 +23,18 @@ export class BackendService {
     return this.http.get<any>(`${this.usersUrl}/${userId}`)
   }
 
-  saveUser(user: any) : Observable<any>{
+  addUser(user: any) : Observable<any>{
     return this.http.post<any>(this.usersUrl, user)
   }
+
+  updateUser(userId: number | null, updatedUser: any) : Observable<any>{
+    return this.http.put<any>(`${this.usersUrl}/${userId}`, updatedUser)
+  }
+
+  deleteUser(userId: number | null) : Observable<any>{
+    return this.http.delete<any>(`${this.usersUrl}/${userId}`)
+  }
+
 
 
 

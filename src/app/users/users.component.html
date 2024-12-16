@@ -1,0 +1,45 @@
+<div class="container mt-4">
+    <h2 class="text-center">Users</h2>
+  
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Department</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.emailAddress }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.role.name }}</td>
+            <td>{{ user.department.name }}</td>
+            <td>
+              <!--<button class="btn btn-primary btn-sm" (click)="editUser(user.id)">
+                <i class="fa fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">
+                <i class="fa fa-trash"></i> Delete
+              </button>-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!--<div class="text-center mt-3">
+      <button class="btn btn-success" (click)="addUser()">
+        <i class="fa fa-plus"></i> Add User
+      </button>
+    </div>-->
+  </div>
+  
