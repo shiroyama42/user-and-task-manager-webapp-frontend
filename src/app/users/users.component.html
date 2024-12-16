@@ -1,45 +1,105 @@
-<div class="container mt-4">
-    <h2 class="text-center">Users</h2>
-  
-    <!-- Table -->
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Role</th>
-            <th>Department</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.phone }}</td>
-            <td>{{ user.role.name }}</td>
-            <td>{{ user.department.name }}</td>
-            <td>
-              <!--<button class="btn btn-primary btn-sm" (click)="editUser(user.id)">
-                <i class="fa fa-edit"></i> Edit
-              </button>
-              <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">
-                <i class="fa fa-trash"></i> Delete
-              </button>-->
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="mb-0">User Management</h2>
     </div>
-  
-    <!--<div class="text-center mt-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Role</th>
+              <th>Department</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.id }}</td>
+
+              <td *ngIf="user.isEdit">
+                <input [(ngModel)]="user.name" class="form-control">
+              </td>
+              <td *ngIf="!user.isEdit">{{ user.name }}</td>
+
+              <td *ngIf="user.isEdit">
+                <input [(ngModel)]="user.email" class="form-control">
+              </td>
+              <td *ngIf="!user.isEdit">{{ user.email }}</td>
+
+              <td *ngIf="user.isEdit">
+                <input [(ngModel)]="user.phone" class="form-control">
+              </td>
+              <td *ngIf="!user.isEdit">{{ user.phone }}</td>
+
+              <td *ngIf="user.isEdit">
+                <select [(ngModel)]="user.role.id" class="form-control">
+                  <option *ngFor="let role of roles" [value]="role.id">
+                    {{ role.roleName }}
+                  </option>
+                </select>
+              </td>
+              <td *ngIf="!user.isEdit">{{ user.role.roleName }}</td>
+
+              <td *ngIf="user.isEdit">
+                <select [(ngModel)]="user.department.depId" class="form-control">
+                  <option *ngFor="let department of departments" [value]="department.depId">
+                    {{ department.depName }}
+                  </option>
+                </select>
+              </td>
+              <td *ngIf="!user.isEdit">{{ user.department.depName }}</td>
+
+              <td>
+                <span *ngIf="!user.isEdit">
+                  <button *ngIf="confirmDelete !== user.id" class="btn btn-primary btn-sm btn-spacing" (click)="editUser(user)">
+                    <i class="fa fa-edit"></i> Edit
+                  </button>
+                  <button *ngIf="confirmDelete !== user.id" class="btn btn-danger btn-sm btn-spacing" (click)="promptDelete(user.id)">
+                    <i class="fa fa-trash"></i> Delete
+                  </button>
+                  <button *ngIf="confirmDelete !== user.id" class="btn btn-secondary btn-sm btn-spacing" (click)="handleTasksClick(user.id)">
+                    <i class="fa fa-trash"></i> Tasks
+                  </button>
+                </span>
+
+                <span *ngIf="user.isEdit">
+                  <button class="btn btn-success btn-sm btn-spacing" (click)="saveUser(user)">
+                    <i class="fa fa-save"></i> Save
+                  </button>
+                  <button class="btn btn-secondary btn-sm btn-spacing" (click)="cancelEdit()">
+                    <i class="fa fa-times"></i> Cancel
+                  </button>
+                </span>
+
+               <!-- Confirmation for Deletion -->
+                <span *ngIf="confirmDelete === user.id">
+                  <button class="btn btn-danger btn-sm btn-spacing" (click)="deleteUser(user.id)">
+                    <i class="fa fa-check"></i> Yes
+                  </button>
+                  <button class="btn btn-secondary btn-sm btn-spacing" (click)="cancelDelete()">
+                    <i class="fa fa-times"></i> No
+                  </button>
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="users.length === 0">
+              <td colspan="7" class="text-center text-muted">
+                No users found.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--<div class="card-footer text-center">
       <button class="btn btn-success" (click)="addUser()">
         <i class="fa fa-plus"></i> Add User
       </button>
     </div>-->
   </div>
-  
+</div>

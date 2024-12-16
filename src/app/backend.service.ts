@@ -36,6 +36,38 @@ export class BackendService {
   }
 
 
+  //ROLES
+  getRoles() : Observable<any>{
+    return this.http.get<any>(this.rolesUrl)
+  }
 
+
+
+  //DEPARTMENTS
+  getDepartments() : Observable<any>{
+    return this.http.get<any>(this.departmentsUrl)
+  }
+
+
+  //TASKS
+  getTasks() : Observable<any>{
+    return this.http.get<any>(this.tasksUrl)
+  }
+
+  addTask(task: any) : Observable<any>{
+    return this.http.post<any>(this.usersUrl, task)
+  }
+
+  updateTask(taskId: number | null, updatedTask: any) : Observable<any>{
+    return this.http.put<any>(`${this.tasksUrl}/${taskId}`, updatedTask)
+  }
+
+  deleteTask(taskId: number | null) : Observable<any>{
+    return this.http.delete<any>(`${this.tasksUrl}/${taskId}`)
+  }
+
+  getTasksByUser(userId: number | null) : Observable<any>{
+    return this.http.get<any>(`${this.usersUrl}/${userId}/tasks`)
+  }
 
 }

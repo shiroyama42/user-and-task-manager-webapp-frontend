@@ -1,0 +1,15 @@
+.table {
+    font-size: 0.9rem;
+  }
+    
+  .table th, .table td {
+    vertical-align: middle;
+  }
+    
+  .card-header {
+    background: linear-gradient(90deg, #007bff, #0056b3);
+  }
+  
+  .btn-spacing {
+    margin-right: 10px;
+  }
