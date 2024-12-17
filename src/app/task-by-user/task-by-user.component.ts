@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { BackendService } from '../backend.service';
 import { ActivatedRoute } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-task-by-user',
   standalone: true,
@@ -15,6 +17,8 @@ export class TaskByUserComponent {
 
   userId: number = 0;
   tasks: any[] = [];
+
+  user: any[] = [];
 
   constructor(private backendService: BackendService, private route: ActivatedRoute){}
 
