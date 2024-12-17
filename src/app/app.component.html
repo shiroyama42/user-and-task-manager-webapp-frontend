@@ -1,2 +1,30 @@
-
-<router-outlet />
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">MyApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item" *ngIf="userRole === 'Admin' || userRole === 'User">
+            <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+          </li>
+          <li class="nav-item" *ngIf="!userRole">
+            <a class="nav-link" routerLink="auth/registration" routerLinkActive="active">Registration</a>
+          </li>
+          <li class="nav-item"  *ngIf="!userRole">
+            <a class="nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
+          </li>
+          <li class="nav-item" *ngIf="userRole === 'Admin' || userRole === 'User'">
+            <a class="nav-link" (click)="onLogOut()">Log out</a>
+          </li>
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <router-outlet />
+  </div>
+  

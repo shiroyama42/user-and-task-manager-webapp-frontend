@@ -1,0 +1,56 @@
+<div class="registration-container">
+    <h1>Register</h1>
+  
+    <form [formGroup]="registrationForm" (ngSubmit)="onRegistration()">
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" placeholder="Enter your name" />
+        <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched" class="error">
+          Name is required.
+        </div>
+      </div>
+  
+      <!-- Email Address -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input id="email" type="email" formControlName="email" placeholder="Enter your email address" />
+        <div *ngIf="registrationForm.get('emailAddress')?.invalid && registrationForm.get('emailAddress')?.touched" class="error">
+          A valid email address is required.
+        </div>
+      </div>
+  
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="Enter a password" />
+        <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="error">
+          Password must be at least 6 characters long.
+        </div>
+      </div>
+  
+      <!-- Birth Date -->
+      <div class="form-group">
+        <label for="birthDate">Birth Date</label>
+        <input id="birthDate" type="date" formControlName="birthDate" />
+        <div *ngIf="registrationForm.get('birthDate')?.invalid && registrationForm.get('birthDate')?.touched" class="error">
+          Birth date is required.
+        </div>
+      </div>
+  
+      <!-- Phone -->
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input id="phone" type="text" formControlName="phone" placeholder="Enter your phone number" />
+        <div *ngIf="registrationForm.get('phone')?.invalid && registrationForm.get('phone')?.touched" class="error">
+          Phone number is required.
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="registrationForm.invalid" class="submit-btn">
+        Register
+      </button>
+    </form>
+  </div>
+  
