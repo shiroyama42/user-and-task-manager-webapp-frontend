@@ -13,3 +13,10 @@
 .btn-spacing {
   margin-right: 10px;
 }
+
+.actions-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  align-items: center;
+}
