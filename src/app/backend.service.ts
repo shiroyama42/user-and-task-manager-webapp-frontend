@@ -104,4 +104,9 @@ export class BackendService {
     )
   }
 
+  //USER_TASK TABLE
+  getTaskUserConnector(): Observable<any> {
+    return this.http.get<any>('company/usertasks'); // Replace with actual endpoint
+  }
+
 }

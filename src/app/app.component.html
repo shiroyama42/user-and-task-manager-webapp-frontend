@@ -1,14 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">MyApp</a>
+      <a class="navbar-brand" href="#">Task Management</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item" *ngIf="userRole === 'Admin' || userRole === 'User">
+          <li class="nav-item" *ngIf="userRole === 'Admin' || userRole === 'User'">
             <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+          </li>
+          <li class="nav-item" *ngIf="userRole === 'Admin' || userRole === 'User'">
+            <a class="nav-link" routerLink="/tasks" routerLinkActive="active">Tasks</a>
           </li>
           <li class="nav-item" *ngIf="!userRole">
             <a class="nav-link" routerLink="auth/registration" routerLinkActive="active">Registration</a>
@@ -18,6 +21,32 @@
           </li>
           <li class="nav-item" *ngIf="userRole === 'Admin' || userRole === 'User'">
             <a class="nav-link" (click)="onLogOut()">Log out</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown" *ngIf="userRole === 'Admin' || userRole === 'User'">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="menuDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Menu
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDropdown">
+              <li>
+                <button class="dropdown-item text-primary text-center" type="button">Profile</button>
+              </li>
+              <li>
+                <button class="dropdown-item text-success text-center" type="button">Tasks</button>
+              </li>
+              <li>
+                <button class="dropdown-item text-danger text-center" type="button" (click)="onLogOut()">Log out</button>
+              </li>
+            </ul>
           </li>
         </ul>
         

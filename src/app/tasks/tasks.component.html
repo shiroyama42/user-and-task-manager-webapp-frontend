@@ -1,1 +1,41 @@
-<p>tasks works!</p>
+<div class="container mt-5">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white text-center">
+        <h2 class="mb-0">Task Management</h2>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Task</th>
+                <th>Assigned User</th>
+                <th>Email</th>
+                <th>Completion</th>
+                <th>End Date</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of tasks">
+                <td>{{ task.id }}</td>
+                <td>{{ task.task }}</td>
+                <td>{{ task.assignedUsersName }}</td>
+                <td>{{ task.assignedUsersEmail }}</td>
+                <td class="text-center">
+                  <input type="checkbox" [checked]="task.completed" disabled />
+                </td>
+                <td>{{ task.endDate | date: 'yyyy-MM-dd' }}</td>
+                <td class="text-center">
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-danger btn-sm">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

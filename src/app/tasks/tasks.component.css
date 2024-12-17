@@ -1,0 +1,9 @@
+td.text-center {
+    text-align: center; /* Centers text and elements inside td */
+  }
+  
+  td.text-center input[type="checkbox"] {
+    margin: 0 auto; /* Ensures the checkbox stays centered */
+    display: block; /* Makes the checkbox a block element to be centered */
+  }
+  
