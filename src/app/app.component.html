@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Task Management</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -38,10 +38,10 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDropdown">
               <li>
-                <button class="dropdown-item text-primary text-center" type="button">Profile</button>
+                <button class="dropdown-item text-primary text-center" type="button" (click)="handleProfileClick()">Profile</button>
               </li>
               <li>
-                <button class="dropdown-item text-success text-center" type="button">Tasks</button>
+                <button class="dropdown-item text-success text-center" type="button" (click)="handleTasksClick()">Tasks</button>
               </li>
               <li>
                 <button class="dropdown-item text-danger text-center" type="button" (click)="onLogOut()">Log out</button>

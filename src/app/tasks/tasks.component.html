@@ -1,41 +1,145 @@
 <div class="container mt-5">
-    <div class="card shadow">
-      <div class="card-header bg-primary text-white text-center">
-        <h2 class="mb-0">Task Management</h2>
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="mb-0">Task Management</h2>
+    </div>
+    <div class="card-body">
+      <!-- Add Task Button -->
+      <button class="btn btn-primary mb-3" (click)="openAddTaskForm()">Add Task</button>
+
+      <!-- Add Task Form -->
+      <div *ngIf="isAddingTask" class="mb-3">
+        <h4>Add New Task</h4>
+        <form (ngSubmit)="addTask()">
+          <div class="form-group">
+            <label for="taskName">Task Name</label>
+            <input 
+              type="text" 
+              id="taskName" 
+              class="form-control" 
+              [(ngModel)]="newTask.task" 
+              name="taskName" 
+              required />
+          </div>
+
+          
+
+          <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input 
+              type="date" 
+              id="endDate" 
+              class="form-control" 
+              [(ngModel)]="newTask.endDate" 
+              name="endDate" 
+              required />
+          </div>
+
+          <button type="submit" class="btn btn-success mt-2">Save Task</button>
+          <button type="button" class="btn btn-secondary mt-2 ml-2" (click)="cancelAddTask()">Cancel</button>
+        </form>
       </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover align-middle">
-            <thead class="table-dark">
-              <tr>
-                <th>ID</th>
-                <th>Task</th>
-                <th>Assigned User</th>
-                <th>Email</th>
-                <th>Completion</th>
-                <th>End Date</th>
-                <th class="text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let task of tasks">
-                <td>{{ task.id }}</td>
-                <td>{{ task.task }}</td>
-                <td>{{ task.assignedUsersName }}</td>
-                <td>{{ task.assignedUsersEmail }}</td>
-                <td class="text-center">
-                  <input type="checkbox" [checked]="task.completed" disabled />
-                </td>
-                <td>{{ task.endDate | date: 'yyyy-MM-dd' }}</td>
-                <td class="text-center">
-                  <button class="btn btn-primary btn-sm">Edit</button>
-                  <button class="btn btn-danger btn-sm">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+
+      <!-- Task Table -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th class="text-center align-middle">ID</th>
+              <th class="text-center align-middle">Task</th>
+              <th class="text-center align-middle">Assigned Users</th>
+              <th class="text-center align-middle">Email</th>
+              <th class="text-center align-middle">Completion</th>
+              <th class="text-center align-middle">Start Date</th>
+              <th class="text-center align-middle">End Date</th>
+              <th class="text-center align-middle">Completion Time</th>
+              <th class="text-center align-middle">Actions</th>
+              <th class="text-center align-middle">Remove User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of tasks">
+              <td>{{ task.id }}</td>
+              <td *ngIf="!task.isEdit">{{ task.task }}</td>
+              <td *ngIf="task.isEdit">
+                <input [(ngModel)]="task.task" class="form-control form-control-sm">
+              </td>
+
+              <td>
+                <ul class="list-unstyled mb-0">
+                  <li *ngFor="let user of task.users">
+                    <strong>{{ user.name }}</strong>
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul class="list-unstyled mb-0">
+                  <li *ngFor="let user of task.users">
+                    <em>{{ user.email }}</em>
+                  </li>
+                </ul>
+              </td>
+
+              <td class="text-center">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="task.completed"
+                  (change)="toggleCompletion(task)"
+                  [disabled]="!task.isEdit"
+                  class="form-check-input">
+              </td>
+
+              <td>{{task.startDate}}</td>
+              <td>
+                <input 
+                  *ngIf="task.isEdit"
+                  [(ngModel)]="task.endDate"
+                  class="form-control form-control-sm" 
+                  type="date" />
+                <span *ngIf="!task.isEdit">{{ task.endDate | date: 'yyyy-MM-dd' }}</span>
+              </td>
+              <td class="text-center">
+                <span class="text-center" *ngIf="task.completed">{{ task.completionTime | date: 'yyyy-MM-dd' }}</span>
+              </td>
+
+              <td class="text-center">
+                <div *ngIf="!task.isEdit">
+                  <button class="btn btn-success btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                    Assign
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li *ngFor="let user of users">
+                      <a 
+                        class="dropdown-item" 
+                        href="#" 
+                        (click)="assignTaskToUser(user.id, task.id); $event.preventDefault()">
+                          {{ user.name }} - {{ user.email }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <button *ngIf="task.isEdit" class="btn btn-success btn-sm" (click)="saveTask(task)">Save</button>
+                <button class="btn btn-primary btn-sm " *ngIf="!task.isEdit" (click)="editTask(task)">Edit</button>
+                <button *ngIf="task.isEdit" class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+                <button *ngIf="!task.isEdit" class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">Delete</button>
+              </td>
+
+              <td class="text-center">
+                <button *ngIf="task.users.length > 0" class="btn btn-warning btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                  Remove User
+                </button>
+                <ul *ngIf="task.users.length > 0" class="dropdown-menu">
+                  <li *ngFor="let user of task.users">
+                    <a class="dropdown-item" href="#" (click)="deleteTaskFromUser(user.id, task.id)">
+                      {{ user.name }} - {{ user.email }}
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  
+</div>

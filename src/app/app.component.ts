@@ -48,4 +48,13 @@ export class AppComponent {
     this.router.navigate([`/users/${this.userId}`]);
   }
 
+  handleTasksClick() : void{
+    this.userId = sessionStorage.getItem('id')
+    if(!this.userId){
+      console.error('Invalid user ID')
+      return
+    }
+    this.router.navigate([`/users/${this.userId}/tasks`])
+  }
+
 }

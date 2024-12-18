@@ -7,3 +7,7 @@ td.text-center {
     display: block; /* Makes the checkbox a block element to be centered */
   }
   
+  .btn-spacing {
+    margin-right: 10px; /* Adjust the value to control spacing between buttons */
+  }
+  

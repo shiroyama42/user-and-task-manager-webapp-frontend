@@ -19,7 +19,6 @@
                 <th>Completion</th>
                 <th>Assigned End Date</th>
                 <th>Completion Date</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -28,11 +27,15 @@
                 <td>{{ task.task }}</td>
                 <td>{{ task.startDate | date: 'yyyy-MM-dd'}}</td>
                 <td class="text-center">
-                  <input type="checkbox" [checked]="task.completion" disabled />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="task.completed"
+                    (change)="toggleCompletion(task)"
+                    class="form-check-input">
                 </td>
                 <td>{{ task.endDate | date: 'yyyy-MM-dd' }}</td>
                 <td class="text-center">
-                  <ng-container *ngIf="task.completion; else showDash">
+                  <ng-container *ngIf="task.completed">
                     {{ task.completionDate | date: 'yyyy-MM-dd' }}
                   </ng-container>
                   <ng-template #showDash>

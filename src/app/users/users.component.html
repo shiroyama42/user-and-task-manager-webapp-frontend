@@ -55,6 +55,7 @@
               <td *ngIf="!user.isEdit">{{ user.department.depName }}</td>
 
               <td>
+                
                 <span *ngIf="!user.isEdit" class="actions-container">
                   <button *ngIf="confirmDelete !== user.id" class="btn btn-primary btn-sm btn-spacing" (click)="editUser(user)">
                     <i class="fa fa-edit"></i> Edit
@@ -76,7 +77,6 @@
                   </button>
                 </span>
 
-               <!-- Confirmation for Deletion -->
                 <span *ngIf="confirmDelete === user.id" class="actions-container">
                   <button class="btn btn-danger btn-sm btn-spacing" (click)="deleteUser(user.id)">
                     <i class="fa fa-check"></i> Yes

@@ -16,7 +16,9 @@ import { ActivatedRoute } from '@angular/router';
 export class TaskByUserComponent {
 
   userId: number = 0;
+
   tasks: any[] = [];
+  filteredTasks: any[] = []
 
   user: any[] = [];
 
@@ -41,6 +43,22 @@ export class TaskByUserComponent {
         console.error('Error fetching tasks: ', error)
       }
     )
+  }
+
+  toggleCompletion(task: any): void {
+    if (task.completed) {
+      task.completionTime = new Date(); 
+    }
+
+    this.backendService.updateTask(task.id, task).subscribe(
+      (updatedTask) => {
+        console.log('Task updated successfully:', updatedTask);
+        this.loadTaskByUser(); 
+      },
+      (error) => {
+        console.error('Error updating task:', error);
+      }
+    );
   }
 
 }

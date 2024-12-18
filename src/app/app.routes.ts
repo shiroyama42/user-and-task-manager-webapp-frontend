@@ -4,9 +4,12 @@ import { TaskByUserComponent } from './task-by-user/task-by-user.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'tasks', pathMatch: 'full'},
     { path: 'users', component: UsersComponent},
+    { path: 'users/:userId', component: ProfileComponent},
     { path: 'users/:userId/tasks', component: TaskByUserComponent},
     { path: 'auth/registration', component: RegisterComponent},
     { path: 'auth/login', component: LoginComponent},

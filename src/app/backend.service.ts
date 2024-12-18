@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class BackendService {
     )
   }
 
-  getUserById(userId: number | null) : Observable<any>{
+  getUserById(userId: string | null) : Observable<any>{
     return this.http.get<any>(`${this.usersUrl}/${userId}`,
       {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
 
@@ -49,6 +50,8 @@ export class BackendService {
 
     )
   }
+
+  
 
 
   //ROLES
@@ -77,7 +80,7 @@ export class BackendService {
   }
 
   addTask(task: any) : Observable<any>{
-    return this.http.post<any>(this.usersUrl, task,
+    return this.http.post<any>(this.tasksUrl, task,
       {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
 
     )
@@ -97,10 +100,30 @@ export class BackendService {
     )
   }
 
+  assignTaskToUser(userId: number | null, taskId: number | null) : Observable<any>{
+    console.log(this.token)
+    return this.http.post<any>(`${this.usersUrl}/${userId}/tasks/${taskId}`, 
+      {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
+    )
+  }
+
+  deleteTaskFromUser(userId: number | null, taskId: number | null) : Observable<any>{
+    return this.http.delete<any>(`${this.usersUrl}/${userId}/tasks/${taskId}`,
+      {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
+    )
+  }
+
   getTasksByUser(userId: number | null) : Observable<any>{
     return this.http.get<any>(`${this.usersUrl}/${userId}/tasks`,
       {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
 
+    )
+  }
+
+  //USER-TAK
+  assignTasksToUsers(userTask: any) : Observable<any>{
+    return this.http.post<any>('company/usertasks', userTask,
+      {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
     )
   }
 

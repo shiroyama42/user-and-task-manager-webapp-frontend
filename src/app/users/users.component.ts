@@ -22,6 +22,7 @@ export class UsersComponent {
 
   roles: any[] = []
   departments: any[] = []
+  tasks: any[] = []
 
   constructor(private backendService: BackendService, private router: Router){}
 
@@ -29,6 +30,7 @@ export class UsersComponent {
     this.loadUsers();
     this.loadRoles();
     this.loadDepartments();
+    this.loadTasks()
   }
 
   loadUsers() : void{
@@ -59,6 +61,14 @@ export class UsersComponent {
         this.departments = data
       }, (error) => {
         console.error('Error fetching departments: ', error)
+      }
+    )
+  }
+
+  loadTasks() : void{
+    this.backendService.getTasks().subscribe(
+      data => {
+        this.tasks = data
       }
     )
   }
@@ -130,5 +140,5 @@ export class UsersComponent {
     this.router.navigate([`/users/${userId}/tasks`])
   }
 
-
+  
 }

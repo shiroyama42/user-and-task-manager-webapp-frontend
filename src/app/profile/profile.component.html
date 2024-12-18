@@ -1,0 +1,77 @@
+<div class="profile-page">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="profile-header position-relative text-white" style="background: url('https://source.unsplash.com/800x400/?nature,abstract') no-repeat center center; background-size: cover;">
+              <div class="overlay position-absolute w-100 h-100" style="background: rgb(61, 75, 235);"></div>
+              <div class="text-center py-5 position-relative">
+                <img src="https://via.placeholder.com/120" alt="User Avatar" class="rounded-circle border border-3 border-light shadow" />
+                <h2 class="mt-3">{{ user.name }}</h2>
+                <p class="mb-0">{{ user.role.roleName }}</p>
+              </div>
+            </div>
+  
+            <div class="card-body bg-white">
+              <div *ngIf="user" class="profile-info">
+                <ul class="list-group list-group-flush">
+                  <!-- Name Field -->
+                  <li *ngIf="user.isEdit" class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong><i class="bi bi-envelope-fill me-2 text-primary"></i> Name:</strong>
+                    <input type="text" class="form-control text-end compact-input" [(ngModel)]="user.name">
+                  </li>
+                  <!-- Email Field -->
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong><i class="bi bi-envelope-fill me-2 text-primary"></i> Email:</strong>
+                    <span *ngIf="!user.isEdit">{{ user.email }}</span>
+                    <input *ngIf="user.isEdit" type="text" class="form-control text-end compact-input" [(ngModel)]="user.email">
+                  </li>
+                  <!-- Phone Field -->
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong><i class="bi bi-telephone-fill me-2 text-primary"></i> Phone:</strong>
+                    <span *ngIf="!user.isEdit">{{ user.phone }}</span>
+                    <input *ngIf="user.isEdit" type="text" class="form-control text-end compact-input" [(ngModel)]="user.phone">
+                  </li>
+                  <!-- Birth Date Field -->
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong><i class="bi bi-calendar-event-fill me-2 text-primary"></i> Date of Birth:</strong>
+                    <span>{{ user.birthDate | date: 'longDate' }}</span>
+                  </li>
+                  <!-- Department Field -->
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong><i class="bi bi-building me-2 text-primary"></i> Department:</strong>
+                    <span>{{ user.department.depName }}</span>
+                  </li>
+                </ul>
+              </div>
+  
+              <!-- Action Buttons -->
+              <div class="text-center mt-4">
+                <button *ngIf="!user.isEdit" class="btn btn-primary" (click)="editUser(user)">Edit Profile</button>
+                <button *ngIf="user.isEdit" class="btn btn-success" (click)="saveUser(user)">Save Changes</button>
+                <button *ngIf="user.isEdit" class="btn btn-secondary" (click)="user.isEdit = false">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Custom Styles -->
+  <style>
+    .compact-input {
+      height: 30px; /* Reduce input height */
+      font-size: 14px; /* Adjust font size to match height */
+    }
+  
+    .text-end {
+      text-align: right; /* Align text to the right */
+    }
+  
+    .list-group-item {
+      background-color: rgba(240, 240, 240, 0.8); /* Keep it clean and readable */
+      border: none;
+    }
+  </style>
+  
