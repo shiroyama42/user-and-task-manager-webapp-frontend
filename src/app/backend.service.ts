@@ -71,6 +71,26 @@ export class BackendService {
     )
   }
 
+  addDepartment(dep: any) : Observable<any>{
+    return this.http.post<any>(this.departmentsUrl, dep,
+      {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
+    )
+  }
+
+  updateDepartment(depId: number | null, updatedDep: any) : Observable<any>{
+    return this.http.put<any>(`${this.departmentsUrl}/${depId}`, updatedDep,
+      {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
+
+    )
+  }
+
+  deleteDepartment(depId: number | null) : Observable<any>{
+    return this.http.delete(`${this.departmentsUrl}/${depId}`,
+      {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json', 'Authorization' : this.token ? `Bearer ${this.token}` : '' }}
+
+    )
+  }
+
 
   //TASKS
   getTasks() : Observable<any>{

@@ -20,7 +20,7 @@
             <a class="nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
           </li>
           <li class="nav-item" *ngIf="userRole === 'Admin' || userRole === 'User'">
-            <a class="nav-link" (click)="onLogOut()">Log out</a>
+            <a class="nav-link" routerLink="/departments" routerLinkActive="active">Departments</a>
           </li>
         </ul>
 
