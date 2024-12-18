@@ -4,10 +4,8 @@
         <h2 class="mb-0">Department Management</h2>
       </div>
       <div class="card-body">
-        <!-- Add Department Button -->
         <button class="btn btn-primary mb-3" (click)="openAddDepartmentForm()">Add Department</button>
   
-        <!-- Add Department Form -->
         <div *ngIf="isAddingDepartment" class="mb-3">
           <h4>Add New Department</h4>
           <form (ngSubmit)="addDepartment()">
@@ -27,31 +25,32 @@
           </form>
         </div>
   
-        <!-- Department Table -->
         <div class="table-responsive">
           <table class="table table-bordered table-hover align-middle">
             <thead class="table-dark">
               <tr>
                 <th class="text-center align-middle">ID</th>
                 <th class="text-center align-middle">Department Name</th>
-                <th class="text-center align-middle">Actions</th>
+                <th *ngIf="isAdmin" class="text-center align-middle">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let dep of departments">
                 <td class="text-center align-middle">{{ dep.depId }}</td>
-                <td>
+                <td class="text-center">
                   <input *ngIf="dep.isEdit" [(ngModel)]="dep.depName" class="form-control form-control-sm" />
                   <span *ngIf="!dep.isEdit">{{ dep.depName }}</span>
                 </td>
-                <td *ngIf="dep.depName !== 'Default'" class="text-center align-middle">
-                  <div *ngIf="!dep.isEdit">
-                    <button class="btn btn-primary btn-sm btn-spacing" (click)="editDepartment(dep)">Edit</button>
-                    <button class="btn btn-danger btn-sm btn-spacing" (click)="deleteDepartment(dep.depId)">Delete</button>
-                  </div>
-                  <div *ngIf="dep.isEdit">
-                    <button class="btn btn-success btn-sm btn-spacing" (click)="saveDepartment(dep)">Save</button>
-                    <button class="btn btn-secondary btn-sm btn-spacing" (click)="cancelEdit()">Cancel</button>
+                <td *ngIf="isAdmin">
+                  <div *ngIf="dep.depName !== 'Default'" class="text-center align-middle">
+                    <div *ngIf="!dep.isEdit">
+                      <button class="btn btn-primary btn-sm btn-spacing" (click)="editDepartment(dep)">Edit</button>
+                      <button class="btn btn-danger btn-sm btn-spacing" (click)="deleteDepartment(dep.depId)">Delete</button>
+                    </div>
+                    <div *ngIf="dep.isEdit">
+                      <button class="btn btn-success btn-sm btn-spacing" (click)="saveDepartment(dep)">Save</button>
+                      <button class="btn btn-secondary btn-sm btn-spacing" (click)="cancelEdit()">Cancel</button>
+                    </div>
                   </div>
                 </td>
               </tr>

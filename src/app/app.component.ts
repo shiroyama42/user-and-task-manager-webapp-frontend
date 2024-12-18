@@ -30,15 +30,6 @@ export class AppComponent {
     window.location.reload();
   }
 
-  handleOrdersClick(): void{
-    this.userId = sessionStorage.getItem('id');
-    if(!this.userId){
-      console.error("Invalid user ID")
-      return;
-    }
-    this.router.navigate([`/users/${this.userId}/order`]);
-  }
-
   handleProfileClick(): void{
     this.userId = sessionStorage.getItem('id');
     if(!this.userId){

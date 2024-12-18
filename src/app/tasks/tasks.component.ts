@@ -40,14 +40,18 @@ export class TasksComponent {
   confirmDelete: number | null = null
   currentDate = new Date()
 
-  newTask = {id: 0, task: '', startDate: this.currentDate, endDate: new Date()};
-  isAddingTask: boolean = false;
+  newTask = {id: 0, task: '', startDate: this.currentDate, endDate: new Date()}
+  isAddingTask: boolean = false
+  isAdmin: boolean = false
 
   constructor(private backendService: BackendService, private datePipe: DatePipe) {}
 
   ngOnInit() : void {
     this.loadTasks()
     this.loadUsers()
+    if(sessionStorage.getItem('role') == 'Admin'){
+      this.isAdmin = true;
+    }
   }
 
   loadTasks() : void {
@@ -56,9 +60,9 @@ export class TasksComponent {
         this.tasks = data.map(task => ({
           ...task,
           users: task.users || [],
-          startDate: this.formatDate(task.startDate),  // Format startDate
-          endDate: this.formatDate(task.endDate),  // Format endDate
-          completionTime: task.completionTime ? this.formatDate(task.completionTime) : null,  // Format completionDate
+          startDate: this.formatDate(task.startDate),  
+          endDate: this.formatDate(task.endDate),  
+          completionTime: task.completionTime ? this.formatDate(task.completionTime) : null,  
         }));
         this.filteredTasks = [...this.tasks];
       },
@@ -77,7 +81,7 @@ export class TasksComponent {
   }
 
   formatDate(date: Date | null): string | null {
-    return date ? this.datePipe.transform(date, 'yyyy-MM-dd') : null;  // Format date to 'yyyy-MM-dd' format
+    return date ? this.datePipe.transform(date, 'yyyy-MM-dd') : null; 
   }
 
   promptDelete(userId: number) : void {
@@ -135,7 +139,6 @@ export class TasksComponent {
       task.completionTime = new Date().toISOString();
     }
 
-    // Format dates for backend (send them as Date objects)
     task.startDate = new Date(task.startDate);
     task.endDate = new Date(task.endDate);
 
@@ -143,7 +146,7 @@ export class TasksComponent {
       (updatedTask) => {
         const index = this.tasks.findIndex(u => u.id === updatedTask.id);
         if (index !== -1) {
-          this.tasks[index] = updatedTask; // Update local data
+          this.tasks[index] = updatedTask
         }
 
         const indexInFiltered = this.filteredTasks.findIndex(u => u.id === updatedTask.id);
@@ -205,15 +208,14 @@ export class TasksComponent {
       return;
     }
     
-    // Format dates before sending them to the backend
     this.newTask.startDate = new Date(this.newTask.startDate);
     this.newTask.endDate = new Date(this.newTask.endDate);
 
     this.backendService.addTask(this.newTask).subscribe(
       (createdTask) => {
         console.log('New task added successfully:', createdTask);
-        this.loadTasks(); // Reload tasks
-        this.cancelAddTask(); // Close the form
+        this.loadTasks(); 
+        this.cancelAddTask(); 
       },
       (error) => {
         console.error('Error adding task:', error);

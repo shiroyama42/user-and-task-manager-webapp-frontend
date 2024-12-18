@@ -4,10 +4,8 @@
       <h2 class="mb-0">Task Management</h2>
     </div>
     <div class="card-body">
-      <!-- Add Task Button -->
       <button class="btn btn-primary mb-3" (click)="openAddTaskForm()">Add Task</button>
 
-      <!-- Add Task Form -->
       <div *ngIf="isAddingTask" class="mb-3">
         <h4>Add New Task</h4>
         <form (ngSubmit)="addTask()">
@@ -21,8 +19,6 @@
               name="taskName" 
               required />
           </div>
-
-          
 
           <div class="form-group">
             <label for="endDate">End Date</label>
@@ -40,7 +36,6 @@
         </form>
       </div>
 
-      <!-- Task Table -->
       <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">
           <thead class="table-dark">
@@ -53,8 +48,8 @@
               <th class="text-center align-middle">Start Date</th>
               <th class="text-center align-middle">End Date</th>
               <th class="text-center align-middle">Completion Time</th>
-              <th class="text-center align-middle">Actions</th>
-              <th class="text-center align-middle">Remove User</th>
+              <th *ngIf="isAdmin" class="text-center align-middle">Actions</th>
+              <th *ngIf="isAdmin" class="text-center align-middle">Remove User</th>
             </tr>
           </thead>
           <tbody>
@@ -102,7 +97,7 @@
                 <span class="text-center" *ngIf="task.completed">{{ task.completionTime | date: 'yyyy-MM-dd' }}</span>
               </td>
 
-              <td class="text-center">
+              <td *ngIf="isAdmin" class="text-center">
                 <div *ngIf="!task.isEdit">
                   <button class="btn btn-success btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                     Assign
@@ -124,7 +119,7 @@
                 <button *ngIf="!task.isEdit" class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">Delete</button>
               </td>
 
-              <td class="text-center">
+              <td *ngIf="isAdmin" class="text-center">
                 <button *ngIf="task.users.length > 0" class="btn btn-warning btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                   Remove User
                 </button>

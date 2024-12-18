@@ -15,10 +15,15 @@ export class DepartmentsComponent {
   isAddingDepartment: boolean = false;
   newDepartment = { depId: 0, depName: '' };
 
+  isAdmin: boolean = false
+
   constructor(private backendService: BackendService) {}
 
   ngOnInit(): void {
     this.loadDepartments();
+    if(sessionStorage.getItem('role') == 'Admin'){
+      this.isAdmin = true;
+    }
   }
 
   loadDepartments(): void {

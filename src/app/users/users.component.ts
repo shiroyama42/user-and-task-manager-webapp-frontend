@@ -22,7 +22,8 @@ export class UsersComponent {
 
   roles: any[] = []
   departments: any[] = []
-  tasks: any[] = []
+
+  isAdmin: boolean = false;
 
   constructor(private backendService: BackendService, private router: Router){}
 
@@ -30,7 +31,9 @@ export class UsersComponent {
     this.loadUsers();
     this.loadRoles();
     this.loadDepartments();
-    this.loadTasks()
+    if(sessionStorage.getItem('role') == 'Admin'){
+      this.isAdmin = true;
+    }
   }
 
   loadUsers() : void{
@@ -61,14 +64,6 @@ export class UsersComponent {
         this.departments = data
       }, (error) => {
         console.error('Error fetching departments: ', error)
-      }
-    )
-  }
-
-  loadTasks() : void{
-    this.backendService.getTasks().subscribe(
-      data => {
-        this.tasks = data
       }
     )
   }
@@ -108,7 +103,7 @@ export class UsersComponent {
       (updatedUser) => {
         const index = this.users.findIndex(u => u.id === updatedUser.id);
         if (index !== -1) {
-          this.users[index] = updatedUser; // Update local data
+          this.users[index] = updatedUser; 
         }
 
         const indexInFiltered = this.filteredUsers.findIndex(u => u.id === updatedUser.id);
@@ -116,7 +111,7 @@ export class UsersComponent {
           this.filteredUsers[indexInFiltered] = updatedUser;
         }
 
-        user.isEdit = false; // Exit edit mode
+        user.isEdit = false; 
         console.log('User updated successfully:', updatedUser);
       },
       (error) => {
@@ -127,8 +122,8 @@ export class UsersComponent {
   }
 
   cancelEdit(): void {
-    this.loadUsers(); // Reload users to discard changes
-    this.users.forEach(u => u.isEdit = false); // Exit edit mode
+    this.loadUsers(); 
+    this.users.forEach(u => u.isEdit = false); 
     this.filteredUsers = [...this.users];
   }
 

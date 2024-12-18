@@ -14,7 +14,7 @@
               <th>Phone</th>
               <th>Role</th>
               <th>Department</th>
-              <th class="text-center">Actions</th>
+              <th *ngIf="isAdmin" class="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -54,7 +54,7 @@
               </td>
               <td *ngIf="!user.isEdit">{{ user.department.depName }}</td>
 
-              <td>
+              <td *ngIf="isAdmin">
                 
                 <span *ngIf="!user.isEdit" class="actions-container">
                   <button *ngIf="confirmDelete !== user.id" class="btn btn-primary btn-sm btn-spacing" (click)="editUser(user)">

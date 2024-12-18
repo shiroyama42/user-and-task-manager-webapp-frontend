@@ -41,7 +41,7 @@ export class LoginComponent {
       (response) => {
         console.log("Login successful: ", response);
         this.setToken(response);
-        this.router.navigate(['/']);
+        this.router.navigate([`users/${sessionStorage.getItem('id')}`])
       }, (error) => {
         console.error('Login failed: ', error);
         this.errorMessage = 'Invalid email or password';
