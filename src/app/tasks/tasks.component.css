@@ -1,13 +1,13 @@
 td.text-center {
-    text-align: center; /* Centers text and elements inside td */
+    text-align: center;
   }
   
   td.text-center input[type="checkbox"] {
-    margin: 0 auto; /* Ensures the checkbox stays centered */
-    display: block; /* Makes the checkbox a block element to be centered */
+    margin: 0 auto; 
+    display: block; 
   }
   
   .btn-spacing {
-    margin-right: 10px; /* Adjust the value to control spacing between buttons */
+    margin-right: 10px; 
   }
   
