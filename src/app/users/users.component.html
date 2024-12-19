@@ -37,8 +37,8 @@
               <td *ngIf="!user.isEdit">{{ user.phone }}</td>
 
               <td *ngIf="user.isEdit">
-                <select [(ngModel)]="user.role.id" class="form-control">
-                  <option *ngFor="let role of roles" [value]="role.id">
+                <select [(ngModel)]="user.role.roleId" class="form-control">
+                  <option *ngFor="let role of roles" [value]="role.roleId">
                     {{ role.roleName }}
                   </option>
                 </select>
