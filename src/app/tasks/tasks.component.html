@@ -4,7 +4,7 @@
       <h2 class="mb-0">Task Management</h2>
     </div>
     <div class="card-body">
-      <button class="btn btn-primary mb-3" (click)="openAddTaskForm()">Add Task</button>
+      <button *ngIf="isAdmin" class="btn btn-primary mb-3" (click)="openAddTaskForm()">Add Task</button>
 
       <div *ngIf="isAddingTask" class="mb-3">
         <h4>Add New Task</h4>
