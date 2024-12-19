@@ -47,7 +47,7 @@ export class RegisterComponent {
           {headers: {'Accept' : 'application/json', 'Content-Type' : 'application/json'},responseType: 'text' }
           ).subscribe(response => {
           this.setToken(response)
-          //this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/login']);
         });
       }
   }

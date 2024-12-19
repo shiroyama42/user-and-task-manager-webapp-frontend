@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackendService } from '../backend.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ export class ProfileComponent {
   userId = sessionStorage.getItem("id")
   user: any = null
 
-  constructor(private backendService: BackendService){}
+  constructor(private backendService: BackendService, private router: Router){}
 
   ngOnInit() : void{
     this.loadUser()
